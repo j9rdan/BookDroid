@@ -88,6 +88,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(panel);
 		layeredPane.repaint();
 		layeredPane.revalidate();
+		panel.setVisible(true);
 	}
 
 	/**
@@ -164,6 +165,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(bookViewPanel);
 		bookViewPanel.setBackground(new Color(224, 236, 253));
 		bookViewPanel.setLayout(null);
+		bookViewPanel.setVisible(false); // hide until panel switch
 		
 		JLabel allBooksLbl = new JLabel("All books:");
 		allBooksLbl.setLabelFor(bookViewPanel);
@@ -180,11 +182,26 @@ public class MainFrame extends JFrame {
 		allBooksJList.setVisibleRowCount(10);
 		allBooksScroll.setViewportView(allBooksJList);
 		
+		JButton backBtn_bookView = new JButton("Back");
+		backBtn_bookView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(startupPanel);
+			}
+		});
+		backBtn_bookView.setOpaque(true);
+		backBtn_bookView.setForeground(Color.WHITE);
+		backBtn_bookView.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_bookView.setBorderPainted(false);
+		backBtn_bookView.setBackground(new Color(0, 45, 151));
+		backBtn_bookView.setBounds(17, 22, 80, 38);
+		bookViewPanel.add(backBtn_bookView);
+		
 		pickBookTypePanel = new JPanel();
 		pickBookTypePanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(pickBookTypePanel);
 		pickBookTypePanel.setBackground(new Color(224, 236, 253));
 		pickBookTypePanel.setLayout(null);
+		pickBookTypePanel.setVisible(false); 
 		
 		JLabel selectBookTypeLbl = new JLabel("Select a book type");
 		selectBookTypeLbl.setBounds(156, 81, 642, 74);
@@ -217,6 +234,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(addPaperbackPanel);
 		addPaperbackPanel.setBackground(new Color(224, 236, 253));
 		addPaperbackPanel.setLayout(null);
+		addPaperbackPanel.setVisible(false); 
 		
 		JLabel addPaperbackLbl = new JLabel("Add a paperback");
 		addPaperbackLbl.setLabelFor(addPaperbackPanel);
@@ -368,6 +386,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(addEbookPanel);
 		addEbookPanel.setBackground(new Color(224, 236, 253));
 		addEbookPanel.setLayout(null);
+		addEbookPanel.setVisible(false); 
 		
 		JLabel addEbookLbl = new JLabel("Add an ebook");
 		addEbookLbl.setLabelFor(addEbookPanel);
@@ -519,6 +538,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(addAudioBookPanel);
 		addAudioBookPanel.setBackground(new Color(224, 236, 253));
 		addAudioBookPanel.setLayout(null);
+		addAudioBookPanel.setVisible(false); 
 		
 		JLabel addAudiobookLbl = new JLabel("Add an audiobook");
 		addAudiobookLbl.setLabelFor(addAudioBookPanel);
@@ -671,6 +691,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(bookSearchPanel);
 		bookSearchPanel.setBackground(new Color(224, 236, 253));
 		bookSearchPanel.setLayout(null);
+		bookSearchPanel.setVisible(false); 
 		
 		JLabel bookSearchLbl = new JLabel("Search a book");
 		bookSearchLbl.setLabelFor(bookSearchPanel);
@@ -717,6 +738,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(searchResultPanel);
 		searchResultPanel.setBackground(new Color(224, 236, 253));
 		searchResultPanel.setLayout(null);
+		searchResultPanel.setVisible(false); 
 		
 		JLabel searchResultLbl = new JLabel("Books found:");
 		searchResultLbl.setLabelFor(searchResultPanel);
@@ -756,6 +778,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(basketPanel);
 		basketPanel.setBackground(new Color(224, 236, 253));
 		basketPanel.setLayout(null);
+		basketPanel.setVisible(false); 
 		
 		JLabel basketLbl = new JLabel("Basket");
 		basketLbl.setLabelFor(basketPanel);
@@ -795,6 +818,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(checkoutPanel);
 		checkoutPanel.setBackground(new Color(224, 236, 253));
 		checkoutPanel.setLayout(null);
+		checkoutPanel.setVisible(false); 
 		
 		JLabel checkoutLbl = new JLabel("Checkout");
 		checkoutLbl.setLabelFor(checkoutPanel);
