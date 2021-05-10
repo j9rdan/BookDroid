@@ -1,13 +1,10 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Window.Type;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
@@ -106,7 +103,7 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 1, 1);
+		layeredPane.setBounds(0, 0, 980, 611);
 		contentPane.add(layeredPane);
 		
 		startupPanel = new JPanel();
@@ -151,6 +148,7 @@ public class MainFrame extends JFrame {
 		JButton viewBooksBtn = new JButton("View books");
 		viewBooksBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				switchPanel(bookViewPanel);
 			}
 		});
 		viewBooksBtn.setOpaque(true);
@@ -187,7 +185,6 @@ public class MainFrame extends JFrame {
 		layeredPane.add(pickBookTypePanel);
 		pickBookTypePanel.setBackground(new Color(224, 236, 253));
 		pickBookTypePanel.setLayout(null);
-		pickBookTypePanel.setVisible(false);
 		
 		JLabel selectBookTypeLbl = new JLabel("Select a book type");
 		selectBookTypeLbl.setBounds(156, 81, 642, 74);
