@@ -13,6 +13,12 @@ import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JCheckBox;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.AbstractListModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
@@ -47,7 +53,12 @@ public class MainFrame extends JFrame {
 	private JTextField languageField_3;
 	private JTextField listenLengthField;
 	private JTextField genreField_3;
-	private JTextField textField_9;
+	private JTextField formatField_2;
+	private JTextField bookSearchField;
+	private JTextField genreField_4;
+	private JTextField cardNoField;
+	private JTextField emailField;
+	private JTextField cvvField;
 
 	/**
 	 * Launch the application.
@@ -84,30 +95,6 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JPanel bookSearchPanel = new JPanel();
-		bookSearchPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(bookSearchPanel);
-		bookSearchPanel.setBackground(new Color(224, 236, 253));
-		
-		JPanel searchResultPanel = new JPanel();
-		searchResultPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(searchResultPanel);
-		searchResultPanel.setBackground(new Color(224, 236, 253));
-		
-		JPanel basketPanel = new JPanel();
-		basketPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(basketPanel);
-		basketPanel.setBackground(new Color(224, 236, 253));
-		
-		JPanel checkoutPanel = new JPanel();
-		checkoutPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(checkoutPanel);
-		checkoutPanel.setBackground(new Color(224, 236, 253));
-		
-		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 1, 1);
-		contentPane.add(layeredPane);
 		
 		JPanel startupPanel = new JPanel();
 		startupPanel.setBounds(0, 0, 980, 611);
@@ -149,6 +136,10 @@ public class MainFrame extends JFrame {
 		startupPanel.add(loginBtn);
 		
 		JButton viewBooksBtn = new JButton("View books");
+		viewBooksBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		viewBooksBtn.setOpaque(true);
 		viewBooksBtn.setForeground(Color.WHITE);
 		viewBooksBtn.setFont(new Font("Poppins", Font.PLAIN, 15));
@@ -157,9 +148,34 @@ public class MainFrame extends JFrame {
 		viewBooksBtn.setBounds(834, 556, 129, 38);
 		startupPanel.add(viewBooksBtn);
 		
+		layeredPane = new JLayeredPane();
+		layeredPane.setBounds(0, 0, 1, 1);
+		contentPane.add(layeredPane);
+		
+		JPanel bookViewPanel = new JPanel();
+		bookViewPanel.setBounds(0, 0, 980, 611);
+		layeredPane.add(bookViewPanel);
+		bookViewPanel.setBackground(new Color(224, 236, 253));
+		bookViewPanel.setLayout(null);
+		
+		JLabel allBooksLbl = new JLabel("All books:");
+		allBooksLbl.setLabelFor(bookViewPanel);
+		allBooksLbl.setBounds(324, 34, 325, 106);
+		allBooksLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
+		bookViewPanel.add(allBooksLbl);
+		
+		JScrollPane allBooksScroll = new JScrollPane();
+		allBooksScroll.setBounds(105, 152, 770, 327);
+		bookViewPanel.add(allBooksScroll);
+		
+		JList allBooksJList = new JList();
+		allBooksJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
+		allBooksJList.setVisibleRowCount(10);
+		allBooksScroll.setViewportView(allBooksJList);
+		
 		JPanel pickBookTypePanel = new JPanel();
 		pickBookTypePanel.setBounds(0, 0, 980, 611);
-		contentPane.add(pickBookTypePanel);
+		layeredPane.add(pickBookTypePanel);
 		pickBookTypePanel.setBackground(new Color(224, 236, 253));
 		pickBookTypePanel.setLayout(null);
 		pickBookTypePanel.setVisible(false);
@@ -192,7 +208,7 @@ public class MainFrame extends JFrame {
 		
 		JPanel addPaperbackPanel = new JPanel();
 		addPaperbackPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(addPaperbackPanel);
+		layeredPane.add(addPaperbackPanel);
 		addPaperbackPanel.setBackground(new Color(224, 236, 253));
 		addPaperbackPanel.setLayout(null);
 		
@@ -343,7 +359,7 @@ public class MainFrame extends JFrame {
 		
 		JPanel addEbookPanel = new JPanel();
 		addEbookPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(addEbookPanel);
+		layeredPane.add(addEbookPanel);
 		addEbookPanel.setBackground(new Color(224, 236, 253));
 		addEbookPanel.setLayout(null);
 		
@@ -494,7 +510,7 @@ public class MainFrame extends JFrame {
 		
 		JPanel addAudioBookPanel = new JPanel();
 		addAudioBookPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(addAudioBookPanel);
+		layeredPane.add(addAudioBookPanel);
 		addAudioBookPanel.setBackground(new Color(224, 236, 253));
 		addAudioBookPanel.setLayout(null);
 		
@@ -627,13 +643,13 @@ public class MainFrame extends JFrame {
 		formatLbl_2.setBounds(537, 470, 75, 25);
 		addAudioBookPanel.add(formatLbl_2);
 		
-		textField_9 = new JTextField();
-		formatLbl_2.setLabelFor(textField_9);
-		textField_9.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_9.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		textField_9.setColumns(10);
-		textField_9.setBounds(624, 460, 310, 45);
-		addAudioBookPanel.add(textField_9);
+		formatField_2 = new JTextField();
+		formatLbl_2.setLabelFor(formatField_2);
+		formatField_2.setHorizontalAlignment(SwingConstants.CENTER);
+		formatField_2.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		formatField_2.setColumns(10);
+		formatField_2.setBounds(624, 460, 310, 45);
+		addAudioBookPanel.add(formatField_2);
 		
 		JButton addBtn_3 = new JButton("Add");
 		addBtn_3.setOpaque(true);
@@ -643,5 +659,204 @@ public class MainFrame extends JFrame {
 		addBtn_3.setBackground(new Color(0, 45, 151));
 		addBtn_3.setBounds(470, 546, 94, 38);
 		addAudioBookPanel.add(addBtn_3);
+		
+		JPanel bookSearchPanel = new JPanel();
+		bookSearchPanel.setBounds(0, 0, 980, 611);
+		layeredPane.add(bookSearchPanel);
+		bookSearchPanel.setBackground(new Color(224, 236, 253));
+		bookSearchPanel.setLayout(null);
+		
+		JLabel bookSearchLbl = new JLabel("Search a book");
+		bookSearchLbl.setLabelFor(bookSearchPanel);
+		bookSearchLbl.setBounds(227, 32, 502, 106);
+		bookSearchLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
+		bookSearchPanel.add(bookSearchLbl);
+		
+		bookSearchField = new JTextField();
+		bookSearchField.setFont(new Font("Montserrat", Font.ITALIC, 25));
+		bookSearchField.setText(" Book title..");
+		bookSearchField.setBounds(133, 236, 705, 46);
+		bookSearchPanel.add(bookSearchField);
+		bookSearchField.setColumns(10);
+		
+		JLabel genreLbl_4 = new JLabel("Genre");
+		genreLbl_4.setLabelFor(genreField_4);
+		genreLbl_4.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		genreLbl_4.setBounds(141, 330, 61, 25);
+		bookSearchPanel.add(genreLbl_4);
+		
+		genreField_4 = new JTextField();
+		genreField_4.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		genreField_4.setColumns(10);
+		genreField_4.setBounds(214, 318, 280, 46);
+		bookSearchPanel.add(genreField_4);
+		
+		JCheckBox audiobookFilterTick = new JCheckBox("Audiobooks (listen time > 5hrs)");
+		audiobookFilterTick.setBackground(Color.WHITE);
+		audiobookFilterTick.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		audiobookFilterTick.setBounds(506, 323, 342, 37);
+		bookSearchPanel.add(audiobookFilterTick);
+		
+		JButton searchBtn = new JButton("Search");
+		searchBtn.setOpaque(true);
+		searchBtn.setForeground(Color.WHITE);
+		searchBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		searchBtn.setBorderPainted(false);
+		searchBtn.setBackground(new Color(0, 45, 151));
+		searchBtn.setBounds(452, 401, 114, 38);
+		bookSearchPanel.add(searchBtn);
+		
+		JPanel searchResultPanel = new JPanel();
+		searchResultPanel.setBounds(0, 0, 980, 611);
+		layeredPane.add(searchResultPanel);
+		searchResultPanel.setBackground(new Color(224, 236, 253));
+		searchResultPanel.setLayout(null);
+		
+		JLabel searchResultLbl = new JLabel("Books found:");
+		searchResultLbl.setLabelFor(searchResultPanel);
+		searchResultLbl.setBounds(277, 40, 452, 106);
+		searchResultLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
+		searchResultPanel.add(searchResultLbl);
+		
+		JScrollPane searchResultScroll = new JScrollPane();
+		searchResultScroll.setBounds(103, 158, 770, 327);
+		searchResultPanel.add(searchResultScroll);
+		
+		JList searchResultJList = new JList();
+		searchResultJList.setModel(new AbstractListModel() {
+			String[] values = new String[] {};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		searchResultJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
+		searchResultJList.setVisibleRowCount(10);
+		searchResultScroll.setViewportView(searchResultJList);
+		
+		JButton addToBasketBtn = new JButton("Add to basket");
+		addToBasketBtn.setOpaque(true);
+		addToBasketBtn.setForeground(Color.WHITE);
+		addToBasketBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		addToBasketBtn.setBorderPainted(false);
+		addToBasketBtn.setBackground(new Color(0, 45, 151));
+		addToBasketBtn.setBounds(404, 511, 182, 38);
+		searchResultPanel.add(addToBasketBtn);
+		
+		JPanel basketPanel = new JPanel();
+		basketPanel.setBounds(0, 0, 980, 611);
+		layeredPane.add(basketPanel);
+		basketPanel.setBackground(new Color(224, 236, 253));
+		basketPanel.setLayout(null);
+		
+		JLabel basketLbl = new JLabel("Basket");
+		basketLbl.setLabelFor(basketPanel);
+		basketLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
+		basketLbl.setBounds(371, 40, 231, 106);
+		basketPanel.add(basketLbl);
+		
+		JScrollPane basketScroll = new JScrollPane();
+		basketScroll.setBounds(101, 158, 770, 327);
+		basketPanel.add(basketScroll);
+		
+		JList basketJList = new JList();
+		basketJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
+		basketJList.setVisibleRowCount(10);
+		basketScroll.setViewportView(basketJList);
+		
+		JButton checkoutBtn = new JButton("Checkout");
+		checkoutBtn.setOpaque(true);
+		checkoutBtn.setForeground(Color.WHITE);
+		checkoutBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		checkoutBtn.setBorderPainted(false);
+		checkoutBtn.setBackground(new Color(0, 45, 151));
+		checkoutBtn.setBounds(424, 511, 139, 38);
+		basketPanel.add(checkoutBtn);
+		
+		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.setOpaque(true);
+		cancelBtn.setForeground(Color.WHITE);
+		cancelBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		cancelBtn.setBorderPainted(false);
+		cancelBtn.setBackground(new Color(251, 143, 143));
+		cancelBtn.setBounds(101, 108, 115, 38);
+		basketPanel.add(cancelBtn);
+		
+		JPanel checkoutPanel = new JPanel();
+		checkoutPanel.setBounds(0, 0, 980, 611);
+		layeredPane.add(checkoutPanel);
+		checkoutPanel.setBackground(new Color(224, 236, 253));
+		checkoutPanel.setLayout(null);
+		
+		JLabel checkoutLbl = new JLabel("Checkout");
+		checkoutLbl.setLabelFor(checkoutPanel);
+		checkoutLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
+		checkoutLbl.setBounds(326, 48, 335, 74);
+		checkoutPanel.add(checkoutLbl);
+		
+		JLabel cardNoLbl = new JLabel("Card Number");
+		cardNoLbl.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		cardNoLbl.setBounds(51, 245, 143, 25);
+		checkoutPanel.add(cardNoLbl);
+		
+		cardNoField = new JTextField();
+		cardNoLbl.setLabelFor(cardNoField);
+		cardNoField.setHorizontalAlignment(SwingConstants.CENTER);
+		cardNoField.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		cardNoField.setColumns(10);
+		cardNoField.setBounds(196, 234, 193, 45);
+		checkoutPanel.add(cardNoField);
+		
+		JLabel emailLbl = new JLabel("Email");
+		emailLbl.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		emailLbl.setBounds(545, 280, 56, 25);
+		checkoutPanel.add(emailLbl);
+		
+		emailField = new JTextField();
+		emailLbl.setLabelFor(emailField);
+		emailField.setHorizontalAlignment(SwingConstants.CENTER);
+		emailField.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		emailField.setColumns(10);
+		emailField.setBounds(613, 269, 310, 45);
+		checkoutPanel.add(emailField);
+		
+		JLabel cvvLbl = new JLabel("CVV");
+		cvvLbl.setLabelFor(emailField);
+		cvvLbl.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		cvvLbl.setBounds(142, 316, 42, 25);
+		checkoutPanel.add(cvvLbl);
+		
+		cvvField = new JTextField();
+		cvvField.setHorizontalAlignment(SwingConstants.CENTER);
+		cvvField.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		cvvField.setColumns(10);
+		cvvField.setBounds(196, 307, 193, 45);
+		checkoutPanel.add(cvvField);
+		
+		JLabel orLbl = new JLabel("or");
+		orLbl.setFont(new Font("Montserrat", Font.PLAIN, 15));
+		orLbl.setLabelFor(checkoutPanel);
+		orLbl.setBounds(474, 286, 21, 16);
+		checkoutPanel.add(orLbl);
+		
+		JButton confirmCreditBtn = new JButton("Confirm Credit Card");
+		confirmCreditBtn.setOpaque(true);
+		confirmCreditBtn.setForeground(Color.WHITE);
+		confirmCreditBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		confirmCreditBtn.setBorderPainted(false);
+		confirmCreditBtn.setBackground(new Color(0, 45, 151));
+		confirmCreditBtn.setBounds(169, 422, 245, 38);
+		checkoutPanel.add(confirmCreditBtn);
+		
+		JButton confirmPaypalBtn = new JButton("Confirm Paypal");
+		confirmPaypalBtn.setOpaque(true);
+		confirmPaypalBtn.setForeground(Color.WHITE);
+		confirmPaypalBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		confirmPaypalBtn.setBorderPainted(false);
+		confirmPaypalBtn.setBackground(new Color(0, 45, 151));
+		confirmPaypalBtn.setBounds(631, 422, 205, 38);
+		checkoutPanel.add(confirmPaypalBtn);
 	}
 }
