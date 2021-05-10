@@ -59,6 +59,16 @@ public class MainFrame extends JFrame {
 	private JTextField cardNoField;
 	private JTextField emailField;
 	private JTextField cvvField;
+	private JPanel startupPanel;
+	private JPanel bookViewPanel;
+	private JPanel pickBookTypePanel;
+	private JPanel addPaperbackPanel;
+	private JPanel addEbookPanel;
+	private JPanel addAudioBookPanel;
+	private JPanel bookSearchPanel;
+	private JPanel searchResultPanel;
+	private JPanel basketPanel;
+	private JPanel checkoutPanel;
 
 	/**
 	 * Launch the application.
@@ -87,7 +97,6 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
-		setType(Type.UTILITY);
 		setTitle("BookDroid: Home of the Bookworm");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 980, 630);
@@ -96,9 +105,13 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel startupPanel = new JPanel();
+		layeredPane = new JLayeredPane();
+		layeredPane.setBounds(0, 0, 1, 1);
+		contentPane.add(layeredPane);
+		
+		startupPanel = new JPanel();
 		startupPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(startupPanel);
+		layeredPane.add(startupPanel);
 		startupPanel.setBackground(new Color(224, 236, 253));
 		startupPanel.setLayout(null);
 		
@@ -148,11 +161,7 @@ public class MainFrame extends JFrame {
 		viewBooksBtn.setBounds(834, 556, 129, 38);
 		startupPanel.add(viewBooksBtn);
 		
-		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 1, 1);
-		contentPane.add(layeredPane);
-		
-		JPanel bookViewPanel = new JPanel();
+		bookViewPanel = new JPanel();
 		bookViewPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(bookViewPanel);
 		bookViewPanel.setBackground(new Color(224, 236, 253));
@@ -173,7 +182,7 @@ public class MainFrame extends JFrame {
 		allBooksJList.setVisibleRowCount(10);
 		allBooksScroll.setViewportView(allBooksJList);
 		
-		JPanel pickBookTypePanel = new JPanel();
+		pickBookTypePanel = new JPanel();
 		pickBookTypePanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(pickBookTypePanel);
 		pickBookTypePanel.setBackground(new Color(224, 236, 253));
@@ -206,7 +215,7 @@ public class MainFrame extends JFrame {
 		bookTypeLbl_1.setBounds(266, 316, 75, 16);
 		pickBookTypePanel.add(bookTypeLbl_1);
 		
-		JPanel addPaperbackPanel = new JPanel();
+		addPaperbackPanel = new JPanel();
 		addPaperbackPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(addPaperbackPanel);
 		addPaperbackPanel.setBackground(new Color(224, 236, 253));
@@ -357,7 +366,7 @@ public class MainFrame extends JFrame {
 		addBtn_1.setBounds(471, 543, 94, 38);
 		addPaperbackPanel.add(addBtn_1);
 		
-		JPanel addEbookPanel = new JPanel();
+		addEbookPanel = new JPanel();
 		addEbookPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(addEbookPanel);
 		addEbookPanel.setBackground(new Color(224, 236, 253));
@@ -508,7 +517,7 @@ public class MainFrame extends JFrame {
 		addBtn_2.setBounds(471, 546, 94, 38);
 		addEbookPanel.add(addBtn_2);
 		
-		JPanel addAudioBookPanel = new JPanel();
+		addAudioBookPanel = new JPanel();
 		addAudioBookPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(addAudioBookPanel);
 		addAudioBookPanel.setBackground(new Color(224, 236, 253));
@@ -660,7 +669,7 @@ public class MainFrame extends JFrame {
 		addBtn_3.setBounds(470, 546, 94, 38);
 		addAudioBookPanel.add(addBtn_3);
 		
-		JPanel bookSearchPanel = new JPanel();
+		bookSearchPanel = new JPanel();
 		bookSearchPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(bookSearchPanel);
 		bookSearchPanel.setBackground(new Color(224, 236, 253));
@@ -706,7 +715,7 @@ public class MainFrame extends JFrame {
 		searchBtn.setBounds(452, 401, 114, 38);
 		bookSearchPanel.add(searchBtn);
 		
-		JPanel searchResultPanel = new JPanel();
+		searchResultPanel = new JPanel();
 		searchResultPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(searchResultPanel);
 		searchResultPanel.setBackground(new Color(224, 236, 253));
@@ -745,7 +754,7 @@ public class MainFrame extends JFrame {
 		addToBasketBtn.setBounds(404, 511, 182, 38);
 		searchResultPanel.add(addToBasketBtn);
 		
-		JPanel basketPanel = new JPanel();
+		basketPanel = new JPanel();
 		basketPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(basketPanel);
 		basketPanel.setBackground(new Color(224, 236, 253));
@@ -784,7 +793,7 @@ public class MainFrame extends JFrame {
 		cancelBtn.setBounds(101, 108, 115, 38);
 		basketPanel.add(cancelBtn);
 		
-		JPanel checkoutPanel = new JPanel();
+		checkoutPanel = new JPanel();
 		checkoutPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(checkoutPanel);
 		checkoutPanel.setBackground(new Color(224, 236, 253));
