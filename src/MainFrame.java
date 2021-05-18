@@ -15,6 +15,11 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.AbstractListModel;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
@@ -70,7 +75,10 @@ public class MainFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -93,8 +101,9 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws IOException 
 	 */
-	public MainFrame() {
+	public MainFrame() throws IOException {
 		setTitle("BookDroid: Home of the Bookworm");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 980, 630);
@@ -131,11 +140,39 @@ public class MainFrame extends JFrame {
 		quote.setBounds(272, 164, 429, 45);
 		startupPanel.add(quote);
 		
-		JComboBox userDropdown = new JComboBox();
+	
+		////// USER DROPDOWN //////
+		
+		FileReader userAccounts = new FileReader("src/UserAccounts.txt");
+		BufferedReader reader = new BufferedReader(userAccounts);
+			
+		ArrayList<String> usernameList = new ArrayList<String>();
+		String row = null;		
+		User user = null;
+			
+		while ((row = reader.readLine()) != null) {
+				
+			String[] rowList = row.split(",");
+			int userID = Integer.parseInt(rowList[0].strip());
+			String username = rowList[1].strip();
+			String surname = rowList[2].strip();
+			Address address = new Address(Integer.parseInt(rowList[3].strip()), rowList[4].strip(), rowList[5].strip());
+			String accountType = rowList[6].strip();
+				
+			user = new User(userID, username, surname, address, accountType); // create user for each row
+			usernameList.add(user.getUsername());
+
+		}
+		reader.close();
+					
+		
+		JComboBox userDropdown = new JComboBox(usernameList.toArray(new String[0])); // convert ArrayList<String> to String[]
 		userDropdown.setMaximumRowCount(4);
 		userDropdown.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		userDropdown.setBounds(337, 315, 181, 27);
 		startupPanel.add(userDropdown);
+		
+		
 		
 		JButton loginBtn = new JButton("Login");
 		loginBtn.setForeground(Color.WHITE);
