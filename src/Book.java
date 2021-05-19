@@ -1,4 +1,3 @@
-import java.util.Date;
 
 public class Book implements Comparable<Book> {
 	
@@ -79,15 +78,15 @@ public class Book implements Comparable<Book> {
 
 	@Override
 	public String toString() {
-		return Long.toString(getISBN()) + ", " +
-				getType() + ", " +
-				getTitle() + ", " +
-				getLanguage() + ", " +
-				getGenre() + ", " +
-				getReleaseDate() + ", " +
-				Float.toString(getPrice()) + ", " +
-				Integer.toString(getQuantity()) + ", " +
-				Float.toString(getData_8()) + ", " +
+		return Long.toString(getISBN()) + "  |  " +
+				getType() + "  |  " +
+				getTitle() + "  |  " +
+				getLanguage() + "  |  " +
+				getGenre() + "  |  " +
+				getReleaseDate() + "  |  " +
+				Float.toString(getPrice()) + "  |  " +
+				Integer.toString(getQuantity()) + "  |  " +
+				Float.toString(getData_8()) + "  |  " +
 				getData_9();
 	}
 

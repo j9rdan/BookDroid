@@ -149,29 +149,83 @@ public class MainFrame extends JFrame {
 		layeredPane.setBounds(0, 0, 980, 611);
 		contentPane.add(layeredPane);
 		
-		startupPanel = new JPanel();
-		startupPanel.setBounds(0, 0, 980, 611);
-		layeredPane.add(startupPanel);
-		startupPanel.setBackground(new Color(224, 236, 253));
-		startupPanel.setLayout(null);
+				
+				startupPanel = new JPanel();
+				startupPanel.setBounds(0, 0, 980, 611);
+				layeredPane.add(startupPanel);
+				startupPanel.setBackground(new Color(224, 236, 253));
+				startupPanel.setLayout(null);
+				
+				JLabel bookDroidTitle = new JLabel("bookDroid");
+				bookDroidTitle.setLabelFor(startupPanel);
+				bookDroidTitle.setFont(new Font("Poppins", Font.BOLD, 90));
+				bookDroidTitle.setBounds(117, 56, 480, 96);
+				startupPanel.add(bookDroidTitle);
+				
+				JLabel droidIcon = new JLabel("{>_<}");
+				droidIcon.setForeground(new Color(0, 45, 151));
+				droidIcon.setFont(new Font("Poppins", Font.BOLD, 90));
+				droidIcon.setLabelFor(startupPanel);
+				droidIcon.setBounds(609, 45, 259, 119);
+				startupPanel.add(droidIcon);
+				
+				JLabel quote = new JLabel("'Home of the Bookworm'");
+				quote.setFont(new Font("Poppins", Font.ITALIC, 35));
+				quote.setBounds(272, 164, 429, 45);
+				startupPanel.add(quote);
+				
+				
+				
+				JButton viewBooksBtn = new JButton("View books");
+				viewBooksBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						switchPanel(bookViewPanel);
+					}
+				});
+				viewBooksBtn.setOpaque(true);
+				viewBooksBtn.setForeground(Color.WHITE);
+				viewBooksBtn.setFont(new Font("Poppins", Font.PLAIN, 15));
+				viewBooksBtn.setBorderPainted(false);
+				viewBooksBtn.setBackground(new Color(0, 45, 151));
+				viewBooksBtn.setBounds(834, 556, 129, 38);
+				startupPanel.add(viewBooksBtn);
 		
-		JLabel bookDroidTitle = new JLabel("bookDroid");
-		bookDroidTitle.setLabelFor(startupPanel);
-		bookDroidTitle.setFont(new Font("Poppins", Font.BOLD, 90));
-		bookDroidTitle.setBounds(117, 56, 480, 96);
-		startupPanel.add(bookDroidTitle);
+		bookViewPanel = new JPanel();
+		bookViewPanel.setBounds(0, 0, 980, 611);
+		layeredPane.add(bookViewPanel);
+		bookViewPanel.setBackground(new Color(224, 236, 253));
+		bookViewPanel.setLayout(null);
+		bookViewPanel.setVisible(false); // hide until panel switch
 		
-		JLabel droidIcon = new JLabel("{>_<}");
-		droidIcon.setForeground(new Color(0, 45, 151));
-		droidIcon.setFont(new Font("Poppins", Font.BOLD, 90));
-		droidIcon.setLabelFor(startupPanel);
-		droidIcon.setBounds(609, 45, 259, 119);
-		startupPanel.add(droidIcon);
+		JLabel allBooksLbl = new JLabel("All books:");
+		allBooksLbl.setLabelFor(bookViewPanel);
+		allBooksLbl.setBounds(324, 34, 325, 106);
+		allBooksLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
+		bookViewPanel.add(allBooksLbl);
 		
-		JLabel quote = new JLabel("'Home of the Bookworm'");
-		quote.setFont(new Font("Poppins", Font.ITALIC, 35));
-		quote.setBounds(272, 164, 429, 45);
-		startupPanel.add(quote);
+		JScrollPane allBooksScroll = new JScrollPane();
+		allBooksScroll.setBounds(65, 148, 860, 430);
+		bookViewPanel.add(allBooksScroll);
+		
+		JButton backBtn_bookView = new JButton("Back");
+		backBtn_bookView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(startupPanel);
+			}
+		});
+		backBtn_bookView.setOpaque(true);
+		backBtn_bookView.setForeground(Color.WHITE);
+		backBtn_bookView.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_bookView.setBorderPainted(false);
+		backBtn_bookView.setBackground(new Color(0, 45, 151));
+		backBtn_bookView.setBounds(17, 22, 80, 38);
+		bookViewPanel.add(backBtn_bookView);
+		
+		JList allBooksJList = new JList(bookList.toArray(new Book[0]));
+		allBooksJList.setBounds(65, 152, 850, 390);
+		allBooksJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
+		allBooksJList.setVisibleRowCount(10);
+		allBooksScroll.setViewportView(allBooksJList);
 		
 	
 		////// USER DROPDOWN //////
@@ -201,20 +255,13 @@ public class MainFrame extends JFrame {
 			
 			
 		}
-		reader.close();	
+		reader.close();
 		
 		JComboBox userDropdown = new JComboBox(usernameList.toArray(new String[0])); // convert ArrayList<String> to String[]
 		userDropdown.setMaximumRowCount(4);
 		userDropdown.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		userDropdown.setBounds(337, 315, 181, 27);
 		startupPanel.add(userDropdown);
-		
-		
-		
-		////// LOGIN BUTTON //////
-		
-		
-		selectedUser = null;
 		JButton loginBtn = new JButton("Login");
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -238,55 +285,10 @@ public class MainFrame extends JFrame {
 		
 		
 		
-		JButton viewBooksBtn = new JButton("View books");
-		viewBooksBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(bookViewPanel);
-			}
-		});
-		viewBooksBtn.setOpaque(true);
-		viewBooksBtn.setForeground(Color.WHITE);
-		viewBooksBtn.setFont(new Font("Poppins", Font.PLAIN, 15));
-		viewBooksBtn.setBorderPainted(false);
-		viewBooksBtn.setBackground(new Color(0, 45, 151));
-		viewBooksBtn.setBounds(834, 556, 129, 38);
-		startupPanel.add(viewBooksBtn);
+		////// LOGIN BUTTON //////
 		
-		bookViewPanel = new JPanel();
-		bookViewPanel.setBounds(0, 0, 980, 611);
-		layeredPane.add(bookViewPanel);
-		bookViewPanel.setBackground(new Color(224, 236, 253));
-		bookViewPanel.setLayout(null);
-		bookViewPanel.setVisible(false); // hide until panel switch
 		
-		JLabel allBooksLbl = new JLabel("All books:");
-		allBooksLbl.setLabelFor(bookViewPanel);
-		allBooksLbl.setBounds(324, 34, 325, 106);
-		allBooksLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
-		bookViewPanel.add(allBooksLbl);
-		
-		JScrollPane allBooksScroll = new JScrollPane();
-		allBooksScroll.setBounds(79, 152, 824, 394);
-		bookViewPanel.add(allBooksScroll);
-		
-		JList allBooksJList = new JList(bookList.toArray(new Book[0]));
-		allBooksJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		allBooksJList.setVisibleRowCount(10);
-		allBooksScroll.setViewportView(allBooksJList);
-		
-		JButton backBtn_bookView = new JButton("Back");
-		backBtn_bookView.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanel(startupPanel);
-			}
-		});
-		backBtn_bookView.setOpaque(true);
-		backBtn_bookView.setForeground(Color.WHITE);
-		backBtn_bookView.setFont(new Font("Poppins", Font.PLAIN, 15));
-		backBtn_bookView.setBorderPainted(false);
-		backBtn_bookView.setBackground(new Color(0, 45, 151));
-		backBtn_bookView.setBounds(17, 22, 80, 38);
-		bookViewPanel.add(backBtn_bookView);
+		selectedUser = null;
 		
 		pickBookTypePanel = new JPanel();
 		pickBookTypePanel.setBounds(0, 0, 980, 611);
@@ -301,7 +303,26 @@ public class MainFrame extends JFrame {
 		selectBookTypeLbl.setLabelFor(pickBookTypePanel);
 		pickBookTypePanel.add(selectBookTypeLbl);
 		
+		
+		
+		///// BOOK TYPE DROPDOWN //////
+		
+		JComboBox bookTypeDropdown = new JComboBox(new String[] {"paperback", "ebook", "audiobook"});
+		bookTypeDropdown.setMaximumRowCount(4);
+		bookTypeDropdown.setFont(new Font("Montserrat", Font.PLAIN, 15));
+		bookTypeDropdown.setBounds(346, 311, 181, 27);
+		
 		JButton confirmBookBtn = new JButton("Confirm");
+		confirmBookBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (bookTypeDropdown.getSelectedItem().equals("paperback"))
+					switchPanel(addPaperbackPanel);
+				else if (bookTypeDropdown.getSelectedItem().equals("audiobook"))
+					switchPanel(addAudioBookPanel);
+				else
+					switchPanel(addEbookPanel);
+			}
+		});
 		confirmBookBtn.setBounds(564, 305, 125, 38);
 		confirmBookBtn.setOpaque(true);
 		confirmBookBtn.setForeground(Color.WHITE);
@@ -309,12 +330,11 @@ public class MainFrame extends JFrame {
 		confirmBookBtn.setBorderPainted(false);
 		confirmBookBtn.setBackground(new Color(0, 45, 151));
 		pickBookTypePanel.add(confirmBookBtn);
-		
-		JComboBox bookTypeDropdown = new JComboBox();
-		bookTypeDropdown.setMaximumRowCount(4);
-		bookTypeDropdown.setFont(new Font("Montserrat", Font.PLAIN, 15));
-		bookTypeDropdown.setBounds(346, 311, 181, 27);
 		pickBookTypePanel.add(bookTypeDropdown);
+		
+		
+		
+		
 		
 		JLabel bookTypeLbl_1 = new JLabel("Book Type");
 		bookTypeLbl_1.setFont(new Font("Montserrat", Font.PLAIN, 13));
