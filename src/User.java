@@ -15,6 +15,7 @@ public class User {
 		this.accountType = accountType;
 	}
 	
+
 	public int getUserID() {
 		return userID;
 	}

@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
@@ -71,6 +72,8 @@ public class MainFrame extends JFrame {
 	private JPanel searchResultPanel;
 	private JPanel basketPanel;
 	private JPanel checkoutPanel;
+	private User user;
+	private User selectedUser;
 
 	/**
 	 * Launch the application.
@@ -147,8 +150,10 @@ public class MainFrame extends JFrame {
 		BufferedReader reader = new BufferedReader(userAccounts);
 			
 		ArrayList<String> usernameList = new ArrayList<String>();
+		HashMap<String, String> usernameAcctMap = new HashMap<String, String>(); // map user name to account type
+		HashMap<String, User> usernameUserMap = new HashMap<String, User>(); // map user name to user object
 		String row = null;		
-		User user = null;
+		user = null;
 			
 		while ((row = reader.readLine()) != null) {
 				
@@ -161,10 +166,12 @@ public class MainFrame extends JFrame {
 				
 			user = new User(userID, username, surname, address, accountType); // create user for each row
 			usernameList.add(user.getUsername());
-
+			usernameAcctMap.put(username, accountType);
+			usernameUserMap.put(username, user);
+			
+			
 		}
-		reader.close();
-					
+		reader.close();					
 		
 		JComboBox userDropdown = new JComboBox(usernameList.toArray(new String[0])); // convert ArrayList<String> to String[]
 		userDropdown.setMaximumRowCount(4);
@@ -174,7 +181,22 @@ public class MainFrame extends JFrame {
 		
 		
 		
+		////// LOGIN BUTTON //////
+		
+		
+		selectedUser = null;
 		JButton loginBtn = new JButton("Login");
+		loginBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Object chosenUsername = userDropdown.getSelectedItem();
+				selectedUser = usernameUserMap.get(chosenUsername);					
+				if (usernameAcctMap.get(chosenUsername).equals("customer"))
+					switchPanel(bookSearchPanel);
+				else
+					switchPanel(pickBookTypePanel);
+			}
+		});
 		loginBtn.setForeground(Color.WHITE);
 		loginBtn.setOpaque(true);
 		loginBtn.setBorderPainted(false);
