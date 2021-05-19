@@ -75,18 +75,57 @@ public class Book implements Comparable<Book> {
 		return data_9;
 	}
 	
+	public void setISBN(long iSBN) {
+		ISBN = iSBN;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+	
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	public void setData_8(float data_8) {
+		this.data_8 = data_8;
+	}
+	
+	public void setData_9(String data_9) {
+		this.data_9 = data_9;
+	}
 
 	@Override
 	public String toString() {
-		return Long.toString(getISBN()) + "  |  " +
-				getType() + "  |  " +
-				getTitle() + "  |  " +
-				getLanguage() + "  |  " +
-				getGenre() + "  |  " +
-				getReleaseDate() + "  |  " +
-				Float.toString(getPrice()) + "  |  " +
-				Integer.toString(getQuantity()) + "  |  " +
-				Float.toString(getData_8()) + "  |  " +
+		return Long.toString(getISBN()) + ", " +
+				getType() + ", " +
+				getTitle() + ", " +
+				getLanguage() + ", " +
+				getGenre() + ", " +
+				getReleaseDate() + ", " +
+				Float.toString(getPrice()) + ", " +
+				Integer.toString(getQuantity()) + ", " +
+				Float.toString(getData_8()) + ", " +
 				getData_9();
 	}
 

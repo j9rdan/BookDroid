@@ -6,6 +6,7 @@ public class User {
 	private String surname;
 	private String address;
 	private String accountType;
+	private String paymentMethod;
 	
 	public User(int userID, String username, String surname, Address address, String accountType) {
 		this.userID = userID;
@@ -36,6 +37,10 @@ public class User {
 		return accountType;
 	}
 	
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+	
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
@@ -54,6 +59,10 @@ public class User {
 	
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
+	}
+	
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 	
 	@Override
