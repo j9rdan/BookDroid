@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
@@ -115,6 +116,35 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		///// VIEW OF ALL BOOKS /////
+		
+		FileReader allBooks = new FileReader("src/Stock.txt");
+		BufferedReader reader = new BufferedReader(allBooks);
+		ArrayList<Book> bookList = new ArrayList<Book>();
+		Book book = null;
+		String row = null;
+		
+		while ((row = reader.readLine()) != null) {
+			String[] rowList = row.split(",");
+			Long ISBN = Long.parseLong(rowList[0].strip());
+			String type = rowList[1].strip();
+			String title = rowList[2].strip();
+			String language = rowList[3].strip();
+			String genre = rowList[4].strip();
+			String releaseDate = rowList[5].strip();
+			Float price = Float.parseFloat(rowList[6].strip());
+			int quantity = Integer.parseInt(rowList[7].strip());
+			float data_8 = Float.parseFloat(rowList[8].strip());
+			String data_9 = rowList[9].strip();
+			book = new Book(ISBN, type, title, language, genre, releaseDate, price, quantity, data_8, data_9);			
+			bookList.add(book);
+		}
+		reader.close();
+		
+		
+		
+		
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 980, 611);
 		contentPane.add(layeredPane);
@@ -147,12 +177,12 @@ public class MainFrame extends JFrame {
 		////// USER DROPDOWN //////
 		
 		FileReader userAccounts = new FileReader("src/UserAccounts.txt");
-		BufferedReader reader = new BufferedReader(userAccounts);
+		reader = new BufferedReader(userAccounts);
 			
 		ArrayList<String> usernameList = new ArrayList<String>();
 		HashMap<String, String> usernameAcctMap = new HashMap<String, String>(); // map user name to account type
 		HashMap<String, User> usernameUserMap = new HashMap<String, User>(); // map user name to user object
-		String row = null;		
+		row = null;		
 		user = null;
 			
 		while ((row = reader.readLine()) != null) {
@@ -171,7 +201,7 @@ public class MainFrame extends JFrame {
 			
 			
 		}
-		reader.close();					
+		reader.close();	
 		
 		JComboBox userDropdown = new JComboBox(usernameList.toArray(new String[0])); // convert ArrayList<String> to String[]
 		userDropdown.setMaximumRowCount(4);
@@ -205,6 +235,9 @@ public class MainFrame extends JFrame {
 		loginBtn.setBounds(530, 309, 98, 38);
 		startupPanel.add(loginBtn);
 		
+		
+		
+		
 		JButton viewBooksBtn = new JButton("View books");
 		viewBooksBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,10 +266,10 @@ public class MainFrame extends JFrame {
 		bookViewPanel.add(allBooksLbl);
 		
 		JScrollPane allBooksScroll = new JScrollPane();
-		allBooksScroll.setBounds(105, 152, 770, 327);
+		allBooksScroll.setBounds(79, 152, 824, 394);
 		bookViewPanel.add(allBooksScroll);
 		
-		JList allBooksJList = new JList();
+		JList allBooksJList = new JList(bookList.toArray(new Book[0]));
 		allBooksJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		allBooksJList.setVisibleRowCount(10);
 		allBooksScroll.setViewportView(allBooksJList);
