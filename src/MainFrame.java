@@ -364,6 +364,7 @@ public class MainFrame extends JFrame {
 
 		bookTypeField_1 = new JTextField();
 		bookTypeField_1.setText("paperback");
+		bookTypeField_1.setEditable(false); 	// prevent user from adding other book types in that section
 		bookTypeLbl_2.setLabelFor(bookTypeField_1);
 		bookTypeField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		bookTypeField_1.setFont(new Font("Montserrat", Font.PLAIN, 25));
@@ -499,6 +500,16 @@ public class MainFrame extends JFrame {
 					allBooksJList.setListData(bookList.toArray());;
 				} catch(Exception ex) {
 					ex.printStackTrace();
+				} finally { // clear inputs
+					ISBNfield_1.setText("");
+					titleField_1.setText("");
+					languageField_1.setText("");
+					genreField_1.setText("");
+					releaseDateField_1.setText("");
+					priceField_1.setText("");
+					quantityField_1.setText("");
+					pageCountField_1.setText("");
+					conditionField_1.setText("");
 				}
 				
 				switchPanel(bookViewPanel);
@@ -561,6 +572,7 @@ public class MainFrame extends JFrame {
 
 		bookTypeField_2 = new JTextField();
 		bookTypeField_2.setText("ebook");
+		bookTypeField_2.setEditable(false);
 		bookTypeLbl_3.setLabelFor(bookTypeField_2);
 		bookTypeField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		bookTypeField_2.setFont(new Font("Montserrat", Font.PLAIN, 25));
@@ -646,7 +658,7 @@ public class MainFrame extends JFrame {
 		genreField_2.setBounds(160, 460, 310, 45);
 		addEbookPanel.add(genreField_2);
 
-		JLabel formatLbl_1 = new JLabel("Condition");
+		JLabel formatLbl_1 = new JLabel("Format");
 		formatLbl_1.setFont(new Font("Montserrat", Font.PLAIN, 20));
 		formatLbl_1.setBounds(513, 470, 100, 25);
 		addEbookPanel.add(formatLbl_1);
@@ -660,6 +672,44 @@ public class MainFrame extends JFrame {
 		addEbookPanel.add(formatField_1);
 
 		JButton addBtn_2 = new JButton("Add");
+		addBtn_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// save input values
+				Long ISBN_e = Long.parseLong(ISBNfield_2.getText().strip());
+				String type_e = bookTypeField_2.getText().strip();
+				String title_e = titleField_2.getText().strip();
+				String language_e = languageField_2.getText().strip();
+				String genre_e = genreField_2.getText().strip();
+				String releaseDate_e = releaseDateField_2.getText().strip();
+				Float price_e = Float.parseFloat(priceField_2.getText().strip());
+				int quantity_e = Integer.parseInt(quantityField_2.getText().strip());
+				float pageCount_e = Float.parseFloat(pageCountField_2.getText().strip());
+				String format_e = formatField_1.getText().strip();
+				
+				// create new paperback & add to collection
+				Book ebook = new Book(ISBN_e, type_e, title_e, language_e, genre_e, releaseDate_e, price_e, quantity_e, pageCount_e, format_e);
+				bookList.add(ebook);
+				try {
+					Logger.saveBook(bookList, ebook);
+					allBooksJList.setListData(bookList.toArray());;
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				} finally { // clear inputs
+					ISBNfield_2.setText("");
+					titleField_2.setText("");
+					languageField_2.setText("");
+					genreField_2.setText("");
+					releaseDateField_2.setText("");
+					priceField_2.setText("");
+					quantityField_2.setText("");
+					pageCountField_2.setText("");
+					formatField_1.setText("");
+				}
+				
+				switchPanel(bookViewPanel);
+			}
+		});
 		addBtn_2.setOpaque(true);
 		addBtn_2.setForeground(Color.WHITE);
 		addBtn_2.setFont(new Font("Poppins", Font.PLAIN, 20));
@@ -719,6 +769,7 @@ public class MainFrame extends JFrame {
 		bookTypeField_3 = new JTextField();
 		bookTypeLbl_4.setLabelFor(bookTypeField_3);
 		bookTypeField_3.setText("audiobook");
+		bookTypeField_3.setEditable(false);
 		bookTypeField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		bookTypeField_3.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		bookTypeField_3.setColumns(10);
@@ -817,6 +868,44 @@ public class MainFrame extends JFrame {
 		addAudioBookPanel.add(formatField_2);
 
 		JButton addBtn_3 = new JButton("Add");
+		addBtn_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// save input values
+				Long ISBN_a = Long.parseLong(ISBNfield_3.getText().strip());
+				String type_a = bookTypeField_3.getText().strip();
+				String title_a = titleField_3.getText().strip();
+				String language_a = languageField_3.getText().strip();
+				String genre_a = genreField_3.getText().strip();
+				String releaseDate_a = releaseDateField_3.getText().strip();
+				Float price_a = Float.parseFloat(priceField_3.getText().strip());
+				int quantity_a = Integer.parseInt(quantityField_3.getText().strip());
+				float listenLength_a = Float.parseFloat(listenLengthField.getText().strip());
+				String format_a = formatField_2.getText().strip();
+				
+				// create new paperback & add to collection
+				Book audiobook = new Book(ISBN_a, type_a, title_a, language_a, genre_a, releaseDate_a, price_a, quantity_a, listenLength_a, format_a);
+				bookList.add(audiobook);
+				try {
+					Logger.saveBook(bookList, audiobook);
+					allBooksJList.setListData(bookList.toArray());
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				} finally { // clear inputs
+					ISBNfield_3.setText("");
+					titleField_3.setText("");
+					languageField_3.setText("");
+					genreField_3.setText("");
+					releaseDateField_3.setText("");
+					priceField_3.setText("");
+					quantityField_3.setText("");
+					listenLengthField.setText("");
+					formatField_2.setText("");
+				}
+				
+				switchPanel(bookViewPanel);
+			}
+		});
 		addBtn_3.setOpaque(true);
 		addBtn_3.setForeground(Color.WHITE);
 		addBtn_3.setFont(new Font("Poppins", Font.PLAIN, 20));
