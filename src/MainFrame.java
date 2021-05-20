@@ -14,10 +14,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-//import javax.swing.AbstractListModel;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-//import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +62,6 @@ public class MainFrame extends JFrame {
 	private JTextField genreField_4;
 	private JTextField cardNoField;
 	private JTextField emailField;
-//	private JTextField cvvField;
 	private JPanel startupPanel;
 	private JPanel bookViewPanel;
 	private JPanel pickBookTypePanel;
