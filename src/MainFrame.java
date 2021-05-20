@@ -1015,6 +1015,20 @@ public class MainFrame extends JFrame {
 		audiobookFilterTick.setBounds(506, 323, 342, 37);
 		bookSearchPanel.add(audiobookFilterTick);
 		
+		JButton backBtn_search = new JButton("Back");
+		backBtn_search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(startupPanel);
+			}
+		});
+		backBtn_search.setOpaque(true);
+		backBtn_search.setForeground(Color.WHITE);
+		backBtn_search.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_search.setBorderPainted(false);
+		backBtn_search.setBackground(new Color(0, 45, 151));
+		backBtn_search.setBounds(0, 0, 80, 38);
+		bookSearchPanel.add(backBtn_search);
+		
 
 		///// SEARCH RESULT PANEL /////
 
@@ -1075,6 +1089,20 @@ public class MainFrame extends JFrame {
 		searchBtn.setBackground(new Color(0, 45, 151));
 		searchBtn.setBounds(452, 401, 114, 38);
 		bookSearchPanel.add(searchBtn);
+		
+		JButton backBtn_searchResults = new JButton("Back");
+		backBtn_searchResults.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(bookSearchPanel);
+			}
+		});
+		backBtn_searchResults.setOpaque(true);
+		backBtn_searchResults.setForeground(Color.WHITE);
+		backBtn_searchResults.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_searchResults.setBorderPainted(false);
+		backBtn_searchResults.setBackground(new Color(0, 45, 151));
+		backBtn_searchResults.setBounds(0, 0, 80, 38);
+		searchResultPanel.add(backBtn_searchResults);
 		
 	
 		
@@ -1157,6 +1185,22 @@ public class MainFrame extends JFrame {
 		cancelBtn.setBackground(new Color(251, 143, 143));
 		cancelBtn.setBounds(101, 108, 115, 38);
 		basketPanel.add(cancelBtn);
+		
+		JButton backBtn_basket = new JButton("Back");
+		backBtn_basket.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(searchResultPanel);
+			}
+		});
+		backBtn_basket.setOpaque(true);
+		backBtn_basket.setForeground(Color.WHITE);
+		backBtn_basket.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_basket.setBorderPainted(false);
+		backBtn_basket.setBackground(new Color(0, 45, 151));
+		backBtn_basket.setBounds(0, 0, 80, 38);
+		basketPanel.add(backBtn_basket);
+		
+		
 		
 		
 		///// CHECKOUT PANEL /////
@@ -1280,5 +1324,19 @@ public class MainFrame extends JFrame {
 		confirmPaypalBtn.setBackground(new Color(0, 45, 151));
 		confirmPaypalBtn.setBounds(631, 422, 205, 38);
 		checkoutPanel.add(confirmPaypalBtn);
+		
+		JButton backBtn_checkout = new JButton("Back");
+		backBtn_checkout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(basketPanel);
+			}
+		});
+		backBtn_checkout.setOpaque(true);
+		backBtn_checkout.setForeground(Color.WHITE);
+		backBtn_checkout.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_checkout.setBorderPainted(false);
+		backBtn_checkout.setBackground(new Color(0, 45, 151));
+		backBtn_checkout.setBounds(0, 0, 80, 38);
+		checkoutPanel.add(backBtn_checkout);
 	}
 }
