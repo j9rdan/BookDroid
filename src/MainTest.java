@@ -1,5 +1,7 @@
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -53,8 +55,7 @@ public class MainTest {
 ////			System.out.println(bookList.get(i));
 ////		}
 		
-		if ("Hello".toLowerCase().contains("hel"))
-			System.out.println(true);
+		
 
 }
 	

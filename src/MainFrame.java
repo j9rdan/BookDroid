@@ -1063,6 +1063,22 @@ public class MainFrame extends JFrame {
 		basketScroll.setViewportView(basketJList);
 
 		JButton checkoutBtn = new JButton("Checkout");
+//		checkoutBtn.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				for (Book b : Customer.getBasket()) {
+//					try {
+//						Logger.saveCancel(selectedUser, b);
+//					} catch (IOException e1) {
+//						e1.printStackTrace();
+//					}
+//				}
+//				
+//				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
+//				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
+//				switchPanel(searchResultPanel);
+//			}
+//		});
 		checkoutBtn.setOpaque(true);
 		checkoutBtn.setForeground(Color.WHITE);
 		checkoutBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
@@ -1074,6 +1090,15 @@ public class MainFrame extends JFrame {
 		JButton cancelBtn = new JButton("Cancel");
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				for (Book b : Customer.getBasket()) {
+					try {
+						Logger.saveCancel(selectedUser, b);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
 				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
 				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
 				switchPanel(searchResultPanel);
