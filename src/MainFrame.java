@@ -292,7 +292,7 @@ public class MainFrame extends JFrame {
 		pickBookTypePanel.setVisible(false);
 
 		JLabel selectBookTypeLbl = new JLabel("Select a book type");
-		selectBookTypeLbl.setBounds(156, 81, 642, 74);
+		selectBookTypeLbl.setBounds(156, 130, 642, 74);
 		selectBookTypeLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
 		selectBookTypeLbl.setLabelFor(pickBookTypePanel);
 		pickBookTypePanel.add(selectBookTypeLbl);
@@ -331,6 +331,20 @@ public class MainFrame extends JFrame {
 		bookTypeLbl_1.setFont(new Font("Montserrat", Font.PLAIN, 13));
 		bookTypeLbl_1.setBounds(266, 316, 75, 16);
 		pickBookTypePanel.add(bookTypeLbl_1);
+		
+		JButton backBtn_pickBookType = new JButton("Back");
+		backBtn_pickBookType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(startupPanel);
+			}
+		});
+		backBtn_pickBookType.setOpaque(true);
+		backBtn_pickBookType.setForeground(Color.WHITE);
+		backBtn_pickBookType.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_pickBookType.setBorderPainted(false);
+		backBtn_pickBookType.setBackground(new Color(0, 45, 151));
+		backBtn_pickBookType.setBounds(0, 0, 80, 38);
+		pickBookTypePanel.add(backBtn_pickBookType);
 		
 		
 		///// PAPERBACK PANEL //////
@@ -527,6 +541,20 @@ public class MainFrame extends JFrame {
 		addBtn_1.setBounds(471, 543, 94, 38);
 		addPaperbackPanel.add(addBtn_1);
 		
+		JButton backBtn_addPaperback = new JButton("Back");
+		backBtn_addPaperback.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(pickBookTypePanel);
+			}
+		});
+		backBtn_addPaperback.setOpaque(true);
+		backBtn_addPaperback.setForeground(Color.WHITE);
+		backBtn_addPaperback.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_addPaperback.setBorderPainted(false);
+		backBtn_addPaperback.setBackground(new Color(0, 45, 151));
+		backBtn_addPaperback.setBounds(0, 0, 80, 38);
+		addPaperbackPanel.add(backBtn_addPaperback);
+		
 		
 		///// EBOOK PANEL /////
 		
@@ -721,6 +749,20 @@ public class MainFrame extends JFrame {
 		addBtn_2.setBackground(new Color(0, 45, 151));
 		addBtn_2.setBounds(471, 546, 94, 38);
 		addEbookPanel.add(addBtn_2);
+		
+		JButton backBtn_addEbook = new JButton("Back");
+		backBtn_addEbook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(pickBookTypePanel);
+			}
+		});
+		backBtn_addEbook.setOpaque(true);
+		backBtn_addEbook.setForeground(Color.WHITE);
+		backBtn_addEbook.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_addEbook.setBorderPainted(false);
+		backBtn_addEbook.setBackground(new Color(0, 45, 151));
+		backBtn_addEbook.setBounds(0, 0, 80, 38);
+		addEbookPanel.add(backBtn_addEbook);
 		
 		
 		///// AUDIO BOOK PANEL /////
@@ -917,6 +959,20 @@ public class MainFrame extends JFrame {
 		addBtn_3.setBackground(new Color(0, 45, 151));
 		addBtn_3.setBounds(470, 546, 94, 38);
 		addAudioBookPanel.add(addBtn_3);
+		
+		JButton backBtn_addAudiobook = new JButton("Back");
+		backBtn_addAudiobook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(pickBookTypePanel);
+			}
+		});
+		backBtn_addAudiobook.setOpaque(true);
+		backBtn_addAudiobook.setForeground(Color.WHITE);
+		backBtn_addAudiobook.setFont(new Font("Poppins", Font.PLAIN, 15));
+		backBtn_addAudiobook.setBorderPainted(false);
+		backBtn_addAudiobook.setBackground(new Color(0, 45, 151));
+		backBtn_addAudiobook.setBounds(0, 0, 80, 38);
+		addAudioBookPanel.add(backBtn_addAudiobook);
 		
 		
 		///// BOOK SEARCH PANEL /////
@@ -1177,6 +1233,9 @@ public class MainFrame extends JFrame {
 						Logger.saveCheckout(selectedUser, b);
 					} catch (IOException e1) {
 						e1.printStackTrace();
+					} finally {
+						cardNoField.setText("");
+						cvvField.setText("");
 					}
 				}
 				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
@@ -1205,6 +1264,8 @@ public class MainFrame extends JFrame {
 						Logger.saveCheckout(selectedUser, b);
 					} catch (IOException e1) {
 						e1.printStackTrace();
+					} finally {
+						emailField.setText("");
 					}
 				}
 				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
