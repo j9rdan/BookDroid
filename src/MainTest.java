@@ -53,32 +53,9 @@ public class MainTest {
 ////			System.out.println(bookList.get(i));
 ////		}
 		
-		FileReader allBooks = new FileReader("src/Stock.txt");
-		BufferedReader reader = new BufferedReader(allBooks);
-		ArrayList<Book> bookList = new ArrayList<Book>();
-		Book book = null;
-		String row = null;
-		
-		while ((row = reader.readLine()) != null) {
-			String[] rowList = row.split(",");
-			Long ISBN = Long.parseLong(rowList[0].strip());
-			String type = rowList[1].strip();
-			String title = rowList[2].strip();
-			String language = rowList[3].strip();
-			String genre = rowList[4].strip();
-			String releaseDate = rowList[5].strip();
-			Float price = Float.parseFloat(rowList[6].strip());
-			int quantity = Integer.parseInt(rowList[7].strip());
-			float data_8 = Float.parseFloat(rowList[8].strip());
-			String data_9 = rowList[9].strip();
-			book = new Book(ISBN, type, title, language, genre, releaseDate, price, quantity, data_8, data_9);			
-			bookList.add(book);
-		}
-		reader.close();
-		for (int i = 0; i < bookList.size(); i++) {
-			System.out.println(bookList.get(i));
-		}
-		
-	}
+		if ("Hello".toLowerCase().contains("hel"))
+			System.out.println(true);
 
+}
+	
 }

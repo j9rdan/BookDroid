@@ -75,6 +75,7 @@ public class MainFrame extends JFrame {
 	private JPanel checkoutPanel;
 	private User user;
 	private User selectedUser;
+	ArrayList<Book> searchResult;
 
 	/**
 	 * Launch the application.
@@ -255,6 +256,8 @@ public class MainFrame extends JFrame {
 		startupPanel.add(userDropdown);
 		JButton loginBtn = new JButton("Login");
 		selectedUser = null;
+		
+		
 		
 		
 		
@@ -687,7 +690,7 @@ public class MainFrame extends JFrame {
 				float pageCount_e = Float.parseFloat(pageCountField_2.getText().strip());
 				String format_e = formatField_1.getText().strip();
 				
-				// create new paperback & add to collection
+				// create new ebook & add to collection
 				Book ebook = new Book(ISBN_e, type_e, title_e, language_e, genre_e, releaseDate_e, price_e, quantity_e, pageCount_e, format_e);
 				bookList.add(ebook);
 				try {
@@ -883,7 +886,7 @@ public class MainFrame extends JFrame {
 				float listenLength_a = Float.parseFloat(listenLengthField.getText().strip());
 				String format_a = formatField_2.getText().strip();
 				
-				// create new paperback & add to collection
+				// create new audiobook & add to collection
 				Book audiobook = new Book(ISBN_a, type_a, title_a, language_a, genre_a, releaseDate_a, price_a, quantity_a, listenLength_a, format_a);
 				bookList.add(audiobook);
 				try {
@@ -954,18 +957,8 @@ public class MainFrame extends JFrame {
 		audiobookFilterTick.setFont(new Font("Montserrat", Font.PLAIN, 20));
 		audiobookFilterTick.setBounds(506, 323, 342, 37);
 		bookSearchPanel.add(audiobookFilterTick);
+		
 
-		JButton searchBtn = new JButton("Search");
-		searchBtn.setOpaque(true);
-		searchBtn.setForeground(Color.WHITE);
-		searchBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
-		searchBtn.setBorderPainted(false);
-		searchBtn.setBackground(new Color(0, 45, 151));
-		searchBtn.setBounds(452, 401, 114, 38);
-		bookSearchPanel.add(searchBtn);
-		
-		
-		
 		///// SEARCH RESULT PANEL /////
 
 		searchResultPanel = new JPanel();
@@ -986,17 +979,6 @@ public class MainFrame extends JFrame {
 		searchResultPanel.add(searchResultScroll);
 
 		JList searchResultJList = new JList();
-		searchResultJList.setModel(new AbstractListModel() {
-			String[] values = new String[] {};
-
-			public int getSize() {
-				return values.length;
-			}
-
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
 		searchResultJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		searchResultJList.setVisibleRowCount(10);
 		searchResultScroll.setViewportView(searchResultJList);
@@ -1009,6 +991,27 @@ public class MainFrame extends JFrame {
 		addToBasketBtn.setBackground(new Color(0, 45, 151));
 		addToBasketBtn.setBounds(404, 511, 182, 38);
 		searchResultPanel.add(addToBasketBtn);
+		
+		searchResult = null;
+		JButton searchBtn = new JButton("Search");
+		searchBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("before function call");
+				searchResult = Customer.searchTitle(bookSearchField.getText().strip(), bookList);
+				searchResultJList.setListData(searchResult.toArray(new Book[0]));
+				switchPanel(searchResultPanel);
+			}
+		});
+		searchBtn.setOpaque(true);
+		searchBtn.setForeground(Color.WHITE);
+		searchBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		searchBtn.setBorderPainted(false);
+		searchBtn.setBackground(new Color(0, 45, 151));
+		searchBtn.setBounds(452, 401, 114, 38);
+		bookSearchPanel.add(searchBtn);
+		
+		
+	
 		
 		
 		///// BASKET PANEL /////
