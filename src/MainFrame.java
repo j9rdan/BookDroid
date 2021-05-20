@@ -982,15 +982,6 @@ public class MainFrame extends JFrame {
 		searchResultJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		searchResultJList.setVisibleRowCount(10);
 		searchResultScroll.setViewportView(searchResultJList);
-
-		JButton addToBasketBtn = new JButton("Add to basket");
-		addToBasketBtn.setOpaque(true);
-		addToBasketBtn.setForeground(Color.WHITE);
-		addToBasketBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
-		addToBasketBtn.setBorderPainted(false);
-		addToBasketBtn.setBackground(new Color(0, 45, 151));
-		addToBasketBtn.setBounds(404, 511, 182, 38);
-		searchResultPanel.add(addToBasketBtn);
 		
 		///// SEARCH FUNCTION /////
 		
@@ -1028,9 +1019,7 @@ public class MainFrame extends JFrame {
 		searchBtn.setBounds(452, 401, 114, 38);
 		bookSearchPanel.add(searchBtn);
 		
-		
 	
-		
 		
 		///// BASKET PANEL /////
 
@@ -1046,12 +1035,29 @@ public class MainFrame extends JFrame {
 		basketLbl.setFont(new Font("Poppins", Font.PLAIN, 70));
 		basketLbl.setBounds(371, 40, 231, 106);
 		basketPanel.add(basketLbl);
+		JList basketJList = new JList();
+
+		
+		JButton addToBasketBtn = new JButton("Add to basket");
+		addToBasketBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Customer.setBasket((ArrayList<Book>)searchResultJList.getSelectedValuesList());
+				basketJList.setListData(searchResultJList.getSelectedValuesList().toArray(new Book[0]));
+				switchPanel(basketPanel);
+			}
+		});
+		addToBasketBtn.setOpaque(true);
+		addToBasketBtn.setForeground(Color.WHITE);
+		addToBasketBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
+		addToBasketBtn.setBorderPainted(false);
+		addToBasketBtn.setBackground(new Color(0, 45, 151));
+		addToBasketBtn.setBounds(404, 511, 182, 38);
+		searchResultPanel.add(addToBasketBtn);
 
 		JScrollPane basketScroll = new JScrollPane();
 		basketScroll.setBounds(101, 158, 770, 327);
 		basketPanel.add(basketScroll);
 
-		JList basketJList = new JList();
 		basketJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		basketJList.setVisibleRowCount(10);
 		basketScroll.setViewportView(basketJList);
