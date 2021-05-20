@@ -14,10 +14,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.AbstractListModel;
+//import javax.swing.AbstractListModel;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
 	private JTextField genreField_4;
 	private JTextField cardNoField;
 	private JTextField emailField;
-	private JTextField cvvField;
+//	private JTextField cvvField;
 	private JPanel startupPanel;
 	private JPanel bookViewPanel;
 	private JPanel pickBookTypePanel;
@@ -97,7 +97,7 @@ public class MainFrame extends JFrame {
 		});
 	}
 
-	public void switchPanel(JPanel panel) {
+	public void switchPanel(JPanel panel) { /* switches to a panel upon given event */
 		layeredPane.removeAll();
 		layeredPane.add(panel);
 		layeredPane.repaint();
@@ -144,13 +144,6 @@ public class MainFrame extends JFrame {
 			Collections.sort(bookList);
 		}
 		reader.close();
-		
-		JPanel paymentSuccessPanel = new JPanel();
-		paymentSuccessPanel.setBounds(0, 0, 980, 611);
-		contentPane.add(paymentSuccessPanel);
-		paymentSuccessPanel.setLayout(null);
-		paymentSuccessPanel.setBackground(new Color(224, 236, 253));
-		paymentSuccessPanel.setVisible(false);
 
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 980, 611);
@@ -199,7 +192,7 @@ public class MainFrame extends JFrame {
 		layeredPane.add(bookViewPanel);
 		bookViewPanel.setBackground(new Color(224, 236, 253));
 		bookViewPanel.setLayout(null);
-		bookViewPanel.setVisible(false); // hide until panel switch
+		bookViewPanel.setVisible(false); 								// hide all panels until switched into
 
 		JLabel allBooksLbl = new JLabel("All books:");
 		allBooksLbl.setLabelFor(bookViewPanel);
@@ -230,6 +223,8 @@ public class MainFrame extends JFrame {
 		allBooksJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		allBooksJList.setVisibleRowCount(10);
 		allBooksScroll.setViewportView(allBooksJList);
+		
+		
 
 		////// USER DROPDOWN //////
 
@@ -237,8 +232,8 @@ public class MainFrame extends JFrame {
 		reader = new BufferedReader(userAccounts);
 
 		ArrayList<String> usernameList = new ArrayList<String>();
-		HashMap<String, String> usernameAcctMap = new HashMap<String, String>(); // map user name to account type
-		HashMap<String, User> usernameUserMap = new HashMap<String, User>(); // map user name to user object
+		HashMap<String, String> usernameAcctMap = new HashMap<String, String>(); 	// map user name to account type
+		HashMap<String, User> usernameUserMap = new HashMap<String, User>(); 		// map user name to user object
 		row = null;
 		user = null;
 
@@ -251,7 +246,7 @@ public class MainFrame extends JFrame {
 			Address address = new Address(Integer.parseInt(rowList[3].strip()), rowList[4].strip(), rowList[5].strip());
 			String accountType = rowList[6].strip();
 
-			user = new User(userID, username, surname, address, accountType); // create user for each row
+			user = new User(userID, username, surname, address, accountType); 		// create user for each row
 			usernameList.add(user.getUsername());
 			usernameAcctMap.put(username, accountType);
 			usernameUserMap.put(username, user);
@@ -269,14 +264,12 @@ public class MainFrame extends JFrame {
 		
 		
 		
-		
-		
 		///// LOGIN BUTTON //////
 		
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object chosenUsername = userDropdown.getSelectedItem();
-				selectedUser = usernameUserMap.get(chosenUsername);
+				selectedUser = usernameUserMap.get(chosenUsername);					// map chosen username to User object containing data
 				if (usernameAcctMap.get(chosenUsername).equals("customer"))
 					switchPanel(bookSearchPanel);
 				else
@@ -290,8 +283,10 @@ public class MainFrame extends JFrame {
 		loginBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
 		loginBtn.setBounds(530, 309, 98, 38);
 		startupPanel.add(loginBtn);
-
-
+		
+		
+		
+		///// ADMIN: CHOOSE BOOK TYPE /////
 
 		pickBookTypePanel = new JPanel();
 		pickBookTypePanel.setBounds(0, 0, 980, 611);
@@ -356,6 +351,7 @@ public class MainFrame extends JFrame {
 		pickBookTypePanel.add(backBtn_pickBookType);
 		
 		
+		
 		///// PAPERBACK PANEL //////
 
 		addPaperbackPanel = new JPanel();
@@ -391,7 +387,7 @@ public class MainFrame extends JFrame {
 
 		bookTypeField_1 = new JTextField();
 		bookTypeField_1.setText("paperback");
-		bookTypeField_1.setEditable(false); 	// prevent user from adding other book types in that section
+		bookTypeField_1.setEditable(false); 			// prevent user from adding other book types in that section
 		bookTypeLbl_2.setLabelFor(bookTypeField_1);
 		bookTypeField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		bookTypeField_1.setFont(new Font("Montserrat", Font.PLAIN, 25));
@@ -503,7 +499,7 @@ public class MainFrame extends JFrame {
 		addPaperbackPanel.add(conditionField_1);
 		
 		
-		JButton addBtn_1 = new JButton("Add");					// add paperback
+		JButton addBtn_1 = new JButton("Add");									// add paperback, similar structure for others
 		addBtn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -522,13 +518,14 @@ public class MainFrame extends JFrame {
 				// create new paperback & add to collection
 				Book paperback = new Book(ISBN_pb, type_pb, title_pb, language_pb, genre_pb, releaseDate_pb, price_pb, quantity_pb, pageCount_pb, condition_pb);
 				bookList.add(paperback);
+				Collections.sort(bookList);
 				try {
-					Logger log = new Logger();
+					Logger log = new Logger();							// create logger
 					log.saveBook(bookList, paperback);
-					allBooksJList.setListData(bookList.toArray());;
+					allBooksJList.setListData(bookList.toArray());;		// update GUI displayed list with new data
 				} catch(Exception ex) {
 					ex.printStackTrace();
-				} finally { // clear inputs
+				} finally { 											// clear inputs
 					ISBNfield_1.setText("");
 					titleField_1.setText("");
 					languageField_1.setText("");
@@ -538,9 +535,8 @@ public class MainFrame extends JFrame {
 					quantityField_1.setText("");
 					pageCountField_1.setText("");
 					conditionField_1.setText("");
+					switchPanel(bookViewPanel);							// view all books to see new addition
 				}
-				
-				switchPanel(bookViewPanel);
 			}
 		});
 		addBtn_1.setOpaque(true);
@@ -566,9 +562,9 @@ public class MainFrame extends JFrame {
 		addPaperbackPanel.add(backBtn_addPaperback);
 		
 		
+		
 		///// EBOOK PANEL /////
 		
-
 		addEbookPanel = new JPanel();
 		addEbookPanel.setBounds(0, 0, 980, 611);
 		layeredPane.add(addEbookPanel);
@@ -713,11 +709,10 @@ public class MainFrame extends JFrame {
 		formatField_1.setBounds(625, 460, 310, 45);
 		addEbookPanel.add(formatField_1);
 
-		JButton addBtn_2 = new JButton("Add");
+		JButton addBtn_2 = new JButton("Add");					// add ebook
 		addBtn_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				// save input values
 				Long ISBN_e = Long.parseLong(ISBNfield_2.getText().strip());
 				String type_e = bookTypeField_2.getText().strip();
 				String title_e = titleField_2.getText().strip();
@@ -729,16 +724,16 @@ public class MainFrame extends JFrame {
 				float pageCount_e = Float.parseFloat(pageCountField_2.getText().strip());
 				String format_e = formatField_1.getText().strip();
 				
-				// create new ebook & add to collection
 				Book ebook = new Book(ISBN_e, type_e, title_e, language_e, genre_e, releaseDate_e, price_e, quantity_e, pageCount_e, format_e);
 				bookList.add(ebook);
+				Collections.sort(bookList);
 				try {
 					Logger log = new Logger();
 					log.saveBook(bookList, ebook);
-					allBooksJList.setListData(bookList.toArray());;
+					allBooksJList.setListData(bookList.toArray());
 				} catch(Exception ex) {
 					ex.printStackTrace();
-				} finally { // clear inputs
+				} finally {
 					ISBNfield_2.setText("");
 					titleField_2.setText("");
 					languageField_2.setText("");
@@ -748,9 +743,8 @@ public class MainFrame extends JFrame {
 					quantityField_2.setText("");
 					pageCountField_2.setText("");
 					formatField_1.setText("");
-				}
-				
-				switchPanel(bookViewPanel);
+					switchPanel(bookViewPanel);
+				}				
 			}
 		});
 		addBtn_2.setOpaque(true);
@@ -776,8 +770,8 @@ public class MainFrame extends JFrame {
 		addEbookPanel.add(backBtn_addEbook);
 		
 		
-		///// AUDIO BOOK PANEL /////
 		
+		///// AUDIO BOOK PANEL /////
 
 		addAudioBookPanel = new JPanel();
 		addAudioBookPanel.setBounds(0, 0, 980, 611);
@@ -928,7 +922,6 @@ public class MainFrame extends JFrame {
 		addBtn_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				// save input values
 				Long ISBN_a = Long.parseLong(ISBNfield_3.getText().strip());
 				String type_a = bookTypeField_3.getText().strip();
 				String title_a = titleField_3.getText().strip();
@@ -940,9 +933,9 @@ public class MainFrame extends JFrame {
 				float listenLength_a = Float.parseFloat(listenLengthField.getText().strip());
 				String format_a = formatField_2.getText().strip();
 				
-				// create new audiobook & add to collection
 				Book audiobook = new Book(ISBN_a, type_a, title_a, language_a, genre_a, releaseDate_a, price_a, quantity_a, listenLength_a, format_a);
 				bookList.add(audiobook);
+				Collections.sort(bookList);
 				try {
 					Logger log = new Logger();
 					log.saveBook(bookList, audiobook);
@@ -959,9 +952,8 @@ public class MainFrame extends JFrame {
 					quantityField_3.setText("");
 					listenLengthField.setText("");
 					formatField_2.setText("");
-				}
-				
-				switchPanel(bookViewPanel);
+					switchPanel(bookViewPanel);
+				}				
 			}
 		});
 		addBtn_3.setOpaque(true);
@@ -985,6 +977,7 @@ public class MainFrame extends JFrame {
 		backBtn_addAudiobook.setBackground(new Color(0, 45, 151));
 		backBtn_addAudiobook.setBounds(0, 0, 80, 38);
 		addAudioBookPanel.add(backBtn_addAudiobook);
+		
 		
 		
 		///// BOOK SEARCH PANEL /////
@@ -1042,6 +1035,7 @@ public class MainFrame extends JFrame {
 		bookSearchPanel.add(backBtn_search);
 		
 
+		
 		///// SEARCH RESULT PANEL /////
 
 		searchResultPanel = new JPanel();
@@ -1061,7 +1055,7 @@ public class MainFrame extends JFrame {
 		searchResultScroll.setBounds(103, 158, 770, 327);
 		searchResultPanel.add(searchResultScroll);
 
-		JList searchResultJList = new JList();
+		JList searchResultJList = new JList();									// create GUI list container
 		searchResultJList.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		searchResultJList.setVisibleRowCount(10);
 		searchResultScroll.setViewportView(searchResultJList);
@@ -1079,8 +1073,8 @@ public class MainFrame extends JFrame {
 					searchResultJList.setListData(searchResult.toArray(new Book[0]));
 				
 				// filter only by genre
-				else if (!genreField_4.getText().equals("") && !audiobookFilterTick.isSelected()) {
-					searchResult = Customer.filterGenre(genreField_4.getText().strip(), searchResult);				}
+				else if (!genreField_4.getText().equals("") && !audiobookFilterTick.isSelected())
+					searchResult = Customer.filterGenre(genreField_4.getText().strip(), searchResult);
 				
 				// filter only by audio book
 				else if (genreField_4.getText().equals("") && audiobookFilterTick.isSelected())
@@ -1138,8 +1132,8 @@ public class MainFrame extends JFrame {
 		JButton addToBasketBtn = new JButton("Add to basket");
 		addToBasketBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Customer.setBasket((ArrayList<Book>)searchResultJList.getSelectedValuesList());
-				basketJList.setListData(searchResultJList.getSelectedValuesList().toArray(new Book[0]));
+				Customer.setBasket((ArrayList<Book>)searchResultJList.getSelectedValuesList());				// update basket
+				basketJList.setListData(searchResultJList.getSelectedValuesList().toArray(new Book[0]));	// update list container with new data
 				switchPanel(basketPanel);
 			}
 		});
@@ -1181,14 +1175,14 @@ public class MainFrame extends JFrame {
 					try {
 						Logger log = new Logger();
 						log.saveCancel(selectedUser, b);
+						Customer.setBasket(new ArrayList<Book>()); // clear list
+						basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
 					} catch (IOException e1) {
 						e1.printStackTrace();
+					} finally {
+						switchPanel(searchResultPanel);
 					}
 				}
-				
-				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
-				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
-				switchPanel(searchResultPanel);
 			}
 		});
 		cancelBtn.setOpaque(true);
@@ -1280,25 +1274,26 @@ public class MainFrame extends JFrame {
 		confirmCreditBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (!(cardNoField.getText().strip().equals("") || cvvField.getText().strip().equals("")))
+				if (!(cardNoField.getText().strip().equals("") || Arrays.toString(cvvField.getPassword()).strip().equals("[]"))) {
 					selectedUser.setPaymentMethod("Credit Card");
-				
-				for (Book b : Customer.getBasket()) {
-					if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);
-					totalCost += b.getPrice(); 
-					try {
-						Logger log = new Logger();
-						log.saveCheckout(selectedUser, b);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					} finally {
-						cardNoField.setText("");
-						cvvField.setText("");
+					
+					for (Book b : Customer.getBasket()) {
+						if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);	// reduce quantity by 1
+						totalCost += b.getPrice(); 
+						try {
+							Logger log = new Logger();
+							log.saveCheckout(selectedUser, b);
+							Customer.setBasket(new ArrayList<Book>());
+							basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						} finally {
+							cardNoField.setText("");
+							cvvField.setText("");
+							switchPanel(basketPanel);
+						}
 					}
 				}
-				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
-				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
-				switchPanel(basketPanel);
 			}
 		});
 		confirmCreditBtn.setOpaque(true);
@@ -1313,25 +1308,24 @@ public class MainFrame extends JFrame {
 		confirmPaypalBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if (!(emailField.getText().strip().equals("")))
+				if (!(emailField.getText().strip().equals(""))) {
 					selectedUser.setPaymentMethod("PayPal");
-				
-				for (Book b : Customer.getBasket()) {
-					totalCost += b.getPrice();
-					if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);
-					try {
-						Logger log = new Logger();
-						log.saveCheckout(selectedUser, b);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					} finally {
-						emailField.setText("");
+					for (Book b : Customer.getBasket()) {
+						totalCost += b.getPrice();
+						if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);
+						try {
+							Logger log = new Logger();
+							log.saveCheckout(selectedUser, b);
+							Customer.setBasket(new ArrayList<Book>());
+							basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						} finally {
+							emailField.setText("");
+							switchPanel(basketPanel);
+						}
 					}
 				}
-				
-				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
-				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
-				switchPanel(basketPanel);
 			}
 		});
 		confirmPaypalBtn.setOpaque(true);

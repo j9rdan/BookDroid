@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class Logger implements Comparable<Logger>{
+public class Logger {
 	
 	LocalDate today = LocalDate.now();
 	String today_f = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -63,10 +63,6 @@ public class Logger implements Comparable<Logger>{
 					+ today_f.toString()); 
 		writer.close();
 		
-	}
-	
-	public int compareTo(Logger l) {
-		return getToday().compareTo(l.getToday());
 	}
 	
 	

@@ -41,26 +41,6 @@ public class User {
 		return paymentMethod;
 	}
 	
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-	
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
-	}
-	
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}

@@ -7,10 +7,10 @@ public class Book implements Comparable<Book> {
 	private String language;
 	private String genre;
 	private String releaseDate;
-	private Float price; // to allow for sorting
+	private Float price;			 // to allow for sorting
 	private int quantity;
-	private float data_8; // 8th index of book data (either pageCount or listenLength)
-	private String data_9; // 9th index of book data (either condition or format)
+	private float data_8; 			// 8th index of book data (either pageCount or listenLength)
+	private String data_9; 			// 9th index of book data (either condition or format)
 
 	public Book(long ISBN, 
 			String type, 
