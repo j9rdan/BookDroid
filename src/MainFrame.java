@@ -992,12 +992,30 @@ public class MainFrame extends JFrame {
 		addToBasketBtn.setBounds(404, 511, 182, 38);
 		searchResultPanel.add(addToBasketBtn);
 		
+		///// SEARCH FUNCTION /////
+		
 		searchResult = null;
 		JButton searchBtn = new JButton("Search");
 		searchBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("before function call");
 				searchResult = Customer.searchTitle(bookSearchField.getText().strip(), bookList);
+				
+				// neither filter
+				if (genreField_4.getText().equals("") && !audiobookFilterTick.isSelected())
+					searchResultJList.setListData(searchResult.toArray(new Book[0]));
+				
+				// filter only by genre
+				else if (!genreField_4.getText().equals("") && !audiobookFilterTick.isSelected()) {
+					searchResult = Customer.filterGenre(genreField_4.getText().strip(), searchResult);				}
+				
+				// filter only by audio book
+				else if (genreField_4.getText().equals("") && audiobookFilterTick.isSelected())
+					searchResult = Customer.filterAudio(searchResult);
+				
+				// both filters
+				else 
+					searchResult = Customer.filterAudio(Customer.filterGenre(genreField_4.getText().strip(), searchResult));
+
 				searchResultJList.setListData(searchResult.toArray(new Book[0]));
 				switchPanel(searchResultPanel);
 			}
