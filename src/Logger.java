@@ -25,7 +25,7 @@ public class Logger {
 	
 	public static void saveCheckout(User u, Book b) throws IOException {
 		
-		FileWriter output = new FileWriter("src/logTest.txt", true);
+		FileWriter output = new FileWriter("src/ActivityLog.txt", true);
 		BufferedWriter writer = new BufferedWriter(output);
 		writer.write("\n");
 		String[] addressSplit = u.getAddress().strip().split(",");

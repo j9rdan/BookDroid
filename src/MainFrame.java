@@ -76,6 +76,7 @@ public class MainFrame extends JFrame {
 	private User user;
 	private User selectedUser;
 	ArrayList<Book> searchResult;
+	Float totalCost;
 
 	/**
 	 * Launch the application.
@@ -1063,22 +1064,11 @@ public class MainFrame extends JFrame {
 		basketScroll.setViewportView(basketJList);
 
 		JButton checkoutBtn = new JButton("Checkout");
-//		checkoutBtn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				
-//				for (Book b : Customer.getBasket()) {
-//					try {
-//						Logger.saveCancel(selectedUser, b);
-//					} catch (IOException e1) {
-//						e1.printStackTrace();
-//					}
-//				}
-//				
-//				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
-//				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
-//				switchPanel(searchResultPanel);
-//			}
-//		});
+		checkoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(checkoutPanel);
+			}
+		});
 		checkoutBtn.setOpaque(true);
 		checkoutBtn.setForeground(Color.WHITE);
 		checkoutBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
@@ -1172,8 +1162,28 @@ public class MainFrame extends JFrame {
 		orLbl.setLabelFor(checkoutPanel);
 		orLbl.setBounds(474, 286, 21, 16);
 		checkoutPanel.add(orLbl);
-
+		
+		totalCost = 0f;
 		JButton confirmCreditBtn = new JButton("Confirm Credit Card");
+		confirmCreditBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (!(cardNoField.getText().strip().equals("") || cvvField.getText().strip().equals("")))
+					selectedUser.setPaymentMethod("Credit Card");
+				
+				for (Book b : Customer.getBasket()) {
+					totalCost += b.getPrice(); 
+					try {
+						Logger.saveCheckout(selectedUser, b);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
+				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
+				switchPanel(basketPanel);
+			}
+		});
 		confirmCreditBtn.setOpaque(true);
 		confirmCreditBtn.setForeground(Color.WHITE);
 		confirmCreditBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
@@ -1183,6 +1193,25 @@ public class MainFrame extends JFrame {
 		checkoutPanel.add(confirmCreditBtn);
 
 		JButton confirmPaypalBtn = new JButton("Confirm Paypal");
+		confirmPaypalBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (!(emailField.getText().strip().equals("")))
+					selectedUser.setPaymentMethod("PayPal");
+				
+				for (Book b : Customer.getBasket()) {
+					totalCost += b.getPrice(); 
+					try {
+						Logger.saveCheckout(selectedUser, b);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
+				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
+				switchPanel(basketPanel);
+			}
+		});
 		confirmPaypalBtn.setOpaque(true);
 		confirmPaypalBtn.setForeground(Color.WHITE);
 		confirmPaypalBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
