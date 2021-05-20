@@ -11,6 +11,14 @@ public class Customer extends User {
 	}
 	
 	
+	public static ArrayList<Book> getBasket() {
+		return basket;
+	}
+	
+	public static void setBasket(ArrayList<Book> basket) {
+		Customer.basket = basket;
+	}
+	
 	
 	public static ArrayList<Book> searchTitle(String input, ArrayList<Book> bookList) {
 		
@@ -53,14 +61,7 @@ public class Customer extends User {
 	}
 	
 	
-	
-	public static ArrayList<Book> getBasket() {
-		return basket;
-	}
-	
-	public static void setBasket(ArrayList<Book> basket) {
-		Customer.basket = basket;
-	}
+
 	
 	@Override
 	public String toString() {

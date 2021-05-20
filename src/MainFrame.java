@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -143,6 +144,13 @@ public class MainFrame extends JFrame {
 			Collections.sort(bookList);
 		}
 		reader.close();
+		
+		JPanel paymentSuccessPanel = new JPanel();
+		paymentSuccessPanel.setBounds(0, 0, 980, 611);
+		contentPane.add(paymentSuccessPanel);
+		paymentSuccessPanel.setLayout(null);
+		paymentSuccessPanel.setBackground(new Color(224, 236, 253));
+		paymentSuccessPanel.setVisible(false);
 
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 980, 611);
@@ -515,7 +523,8 @@ public class MainFrame extends JFrame {
 				Book paperback = new Book(ISBN_pb, type_pb, title_pb, language_pb, genre_pb, releaseDate_pb, price_pb, quantity_pb, pageCount_pb, condition_pb);
 				bookList.add(paperback);
 				try {
-					Logger.saveBook(bookList, paperback);
+					Logger log = new Logger();
+					log.saveBook(bookList, paperback);
 					allBooksJList.setListData(bookList.toArray());;
 				} catch(Exception ex) {
 					ex.printStackTrace();
@@ -724,7 +733,8 @@ public class MainFrame extends JFrame {
 				Book ebook = new Book(ISBN_e, type_e, title_e, language_e, genre_e, releaseDate_e, price_e, quantity_e, pageCount_e, format_e);
 				bookList.add(ebook);
 				try {
-					Logger.saveBook(bookList, ebook);
+					Logger log = new Logger();
+					log.saveBook(bookList, ebook);
 					allBooksJList.setListData(bookList.toArray());;
 				} catch(Exception ex) {
 					ex.printStackTrace();
@@ -934,7 +944,8 @@ public class MainFrame extends JFrame {
 				Book audiobook = new Book(ISBN_a, type_a, title_a, language_a, genre_a, releaseDate_a, price_a, quantity_a, listenLength_a, format_a);
 				bookList.add(audiobook);
 				try {
-					Logger.saveBook(bookList, audiobook);
+					Logger log = new Logger();
+					log.saveBook(bookList, audiobook);
 					allBooksJList.setListData(bookList.toArray());
 				} catch(Exception ex) {
 					ex.printStackTrace();
@@ -1168,7 +1179,8 @@ public class MainFrame extends JFrame {
 				
 				for (Book b : Customer.getBasket()) {
 					try {
-						Logger.saveCancel(selectedUser, b);
+						Logger log = new Logger();
+						log.saveCancel(selectedUser, b);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -1249,8 +1261,8 @@ public class MainFrame extends JFrame {
 		cvvLbl.setFont(new Font("Montserrat", Font.PLAIN, 20));
 		cvvLbl.setBounds(142, 316, 42, 25);
 		checkoutPanel.add(cvvLbl);
-
-		cvvField = new JTextField();
+		
+		JPasswordField cvvField = new JPasswordField();
 		cvvField.setHorizontalAlignment(SwingConstants.CENTER);
 		cvvField.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		cvvField.setColumns(10);
@@ -1275,7 +1287,8 @@ public class MainFrame extends JFrame {
 					if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);
 					totalCost += b.getPrice(); 
 					try {
-						Logger.saveCheckout(selectedUser, b);
+						Logger log = new Logger();
+						log.saveCheckout(selectedUser, b);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} finally {
@@ -1307,7 +1320,8 @@ public class MainFrame extends JFrame {
 					totalCost += b.getPrice();
 					if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);
 					try {
-						Logger.saveCheckout(selectedUser, b);
+						Logger log = new Logger();
+						log.saveCheckout(selectedUser, b);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					} finally {

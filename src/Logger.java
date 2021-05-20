@@ -6,14 +6,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class Logger {
+public class Logger implements Comparable<Logger>{
 	
-	static LocalDate today = LocalDate.now();
-	static String today_f = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+	LocalDate today = LocalDate.now();
+	String today_f = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+	
+	public LocalDate getToday() {
+		return today;
+	}
+	
+	public String getToday_f() {
+		return today_f;
+	}
 	
 	
 
-	public static void saveBook(ArrayList<Book> bookList, Book b) throws IOException {
+	public void saveBook(ArrayList<Book> bookList, Book b) throws IOException {
 		
 		FileWriter output = new FileWriter("src/Stock.txt", true);
 		BufferedWriter writer = new BufferedWriter(output);
@@ -23,7 +31,7 @@ public class Logger {
 				
 	}
 	
-	public static void saveCheckout(User u, Book b) throws IOException {
+	public void saveCheckout(User u, Book b) throws IOException {
 		
 		FileWriter output = new FileWriter("src/ActivityLog.txt", true);
 		BufferedWriter writer = new BufferedWriter(output);
@@ -40,7 +48,7 @@ public class Logger {
 		writer.close();
 	}
 	
-	public static void saveCancel(User u, Book b) throws IOException {
+	public void saveCancel(User u, Book b) throws IOException {
 		
 		FileWriter output = new FileWriter("src/ActivityLog.txt", true);
 		BufferedWriter writer = new BufferedWriter(output);
@@ -56,5 +64,11 @@ public class Logger {
 		writer.close();
 		
 	}
+	
+	public int compareTo(Logger l) {
+		return getToday().compareTo(l.getToday());
+	}
+	
+	
 
 }
