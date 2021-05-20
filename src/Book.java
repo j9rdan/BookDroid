@@ -74,6 +74,10 @@ public class Book implements Comparable<Book> {
 	public String getData_9() {
 		return data_9;
 	}
+	
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 	
 	@Override

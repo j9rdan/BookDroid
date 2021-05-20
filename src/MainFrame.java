@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
@@ -139,6 +140,7 @@ public class MainFrame extends JFrame {
 			String data_9 = rowList[9].strip();
 			book = new Book(ISBN, type, title, language, genre, releaseDate, price, quantity, data_8, data_9);
 			bookList.add(book);
+			Collections.sort(bookList);
 		}
 		reader.close();
 
@@ -249,8 +251,7 @@ public class MainFrame extends JFrame {
 		}
 		reader.close();
 
-		JComboBox userDropdown = new JComboBox(usernameList.toArray(new String[0])); // convert ArrayList<String> to
-																						// String[]
+		JComboBox userDropdown = new JComboBox(usernameList.toArray(new String[0])); // convert ArrayList<String> to String[]
 		userDropdown.setMaximumRowCount(4);
 		userDropdown.setFont(new Font("Montserrat", Font.PLAIN, 15));
 		userDropdown.setBounds(337, 315, 181, 27);
@@ -1201,8 +1202,7 @@ public class MainFrame extends JFrame {
 		basketPanel.add(backBtn_basket);
 		
 		
-		
-		
+
 		///// CHECKOUT PANEL /////
 
 		checkoutPanel = new JPanel();
@@ -1272,6 +1272,7 @@ public class MainFrame extends JFrame {
 					selectedUser.setPaymentMethod("Credit Card");
 				
 				for (Book b : Customer.getBasket()) {
+					if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);
 					totalCost += b.getPrice(); 
 					try {
 						Logger.saveCheckout(selectedUser, b);
@@ -1303,7 +1304,8 @@ public class MainFrame extends JFrame {
 					selectedUser.setPaymentMethod("PayPal");
 				
 				for (Book b : Customer.getBasket()) {
-					totalCost += b.getPrice(); 
+					totalCost += b.getPrice();
+					if (b.getQuantity() > 0) b.setQuantity(b.getQuantity()-1);
 					try {
 						Logger.saveCheckout(selectedUser, b);
 					} catch (IOException e1) {
@@ -1312,6 +1314,7 @@ public class MainFrame extends JFrame {
 						emailField.setText("");
 					}
 				}
+				
 				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
 				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
 				switchPanel(basketPanel);
