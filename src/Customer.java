@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Customer extends User {
 	
@@ -55,7 +54,7 @@ public class Customer extends User {
 	
 	
 	
-	public ArrayList<Book> getBasket() {
+	public static ArrayList<Book> getBasket() {
 		return basket;
 	}
 	
@@ -67,13 +66,6 @@ public class Customer extends User {
 	public String toString() {
 		return super.toString();
 	}
-	
-	
-	
-
-	
-
-	
 	
 
 }

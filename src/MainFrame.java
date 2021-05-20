@@ -1072,6 +1072,13 @@ public class MainFrame extends JFrame {
 		basketPanel.add(checkoutBtn);
 
 		JButton cancelBtn = new JButton("Cancel");
+		cancelBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Customer.setBasket(new ArrayList<Book>()); // set to empty array list
+				basketJList.setListData(Customer.getBasket().toArray(new Book[0]));
+				switchPanel(searchResultPanel);
+			}
+		});
 		cancelBtn.setOpaque(true);
 		cancelBtn.setForeground(Color.WHITE);
 		cancelBtn.setFont(new Font("Poppins", Font.PLAIN, 20));
